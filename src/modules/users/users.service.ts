@@ -31,13 +31,13 @@ export class UsersService {
       password: await bcrypt.hash(password, 10),
       roles: userroles,
       ...createUserDto,
+
     });
     return this.userRepository.save(newuser);
   }
 
   //get all users
   async findAll(paginationQuery: PaginationDto) {
-    console.log(paginationQuery)
     let queryBuilder = this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.roles', 'role');

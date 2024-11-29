@@ -45,8 +45,16 @@ export class CategoriesService {
   }
 
   async remove(id: string) {
-    const category = await this.categoriesRepository.findOneBy({id})
+    const category = await this.categoriesRepository.findOne({
+      where: {id},
+      relations: ['posts']
+    })
+
     if (!category) throw new HttpException("Category not found!", 404)
+
+    if (category.posts.length > 0) {
+      await this.postsRepository.remove(category.posts); // Optionally delete posts
+    }
 
     return await this.categoriesRepository.remove(category)
   }

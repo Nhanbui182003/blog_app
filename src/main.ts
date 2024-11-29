@@ -11,6 +11,6 @@ async function bootstrap() {
   app.setGlobalPrefix(configService.getOrThrow('app.apiPrefix', {infer:true}), {exclude: ['/']});
   app.useGlobalPipes(new ValidationPipe())
   
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
 bootstrap();

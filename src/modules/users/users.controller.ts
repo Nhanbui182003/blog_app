@@ -43,6 +43,7 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     if (!isUUID(id)) throw new HttpException('Invalid UUID format for user ID',400)
-    return this.usersService.remove(id);
+    this.usersService.remove(id);
+    return "Delete successfully"
   }
 }

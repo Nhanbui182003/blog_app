@@ -18,10 +18,12 @@ export class Post extends EntityHelper{
     @ManyToOne(() => User , user => user.posts)
     user: User;
 
-    @ManyToOne(() => Category , Category => Category.posts)
+    @ManyToOne(() => Category , Category => Category.posts, {onDelete: "CASCADE"})
     category: Category;
 
-    @ManyToMany(() => Tag, tag => tag.posts)
+    @ManyToMany(() => Tag, tag => tag.posts, {
+        cascade: true,
+    })
     @JoinTable({
         name: 'post_tag',
         joinColumn: {
